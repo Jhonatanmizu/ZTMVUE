@@ -7,8 +7,12 @@
       <h1 v-if="flag" key="main">Hello world</h1>
       <h1 v-else key="secondary">Else</h1>
     </transition> -->
-    <transition name="zoom">
+    <!-- <transition name="zoom">
       <h2 v-if="flag">Hello</h2>
+    </transition> -->
+    <transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter" @before-leave="beforeLeave"
+      @leave="leave" @after-leave="afterLeave">
+      <h2 v-if="flag">Yolo</h2>
     </transition>
   </div>
 </template>
@@ -24,7 +28,34 @@ export default {
   methods: {
     toggleFlag() {
       this.flag = !this.flag
-    }
+    },
+    beforeEnter: (el) => {
+
+    },
+    enter(el, done) {
+      let animation = el.animate([{ transform: 'scale3d(0,0,0)' }, {}], {
+        duration: 1000,
+
+      })
+      animantion.onfinish = () => {
+
+        done()
+      }
+    },
+    afterEnter(el) {
+
+    },
+    leave(el, done) {
+      let animation = el.animate([{}, { transform: 'scale3d(0,0,0)' }], {
+        duration: 1000,
+
+      })
+      animantion.onfinish = () => {
+
+        done()
+      }
+    },
+    afterLeave(el) { }
   },
 }
 </script>
